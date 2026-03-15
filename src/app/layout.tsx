@@ -11,7 +11,7 @@ const notoSans = Noto_Sans_KR({
 
 export const metadata: Metadata = {
   title: "고갈서버",
-  description: "고갈서버 스타일 레이아웃",
+  description: "고갈서버 스타일",
 };
 
 export default function RootLayout({
