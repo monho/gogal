@@ -37,6 +37,7 @@ export function useStreamers() {
             guild: streamer.team,
             thumbnail: undefined,
             soopId: streamer.soopId,
+            platform: streamer.platform,
           };
 
           if (streamer.platform === "SOOP" && streamer.soopId) {

@@ -115,7 +115,7 @@ export default function NewStreamerPage() {
                   onChange={(e) => setSoopId(e.target.value)}
                 />
                 <p className="text-xs text-muted-foreground">
-                  방송 여부 조회에 사용됩니다. 예: bjapi.afreecatv.com/api/[이 ID]/station
+                  방송 여부 조회 및 Bianca API 후원 연동에 사용됩니다.
                 </p>
               </div>
             )}

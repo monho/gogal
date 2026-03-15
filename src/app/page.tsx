@@ -14,16 +14,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { DonationPanel } from "@/components/donation-panel";
 import { useAuth } from "@/context/auth-context";
+import { useBiancaDonations } from "@/hooks/use-bianca-donations";
 import { useStreamers } from "@/hooks/use-streamers";
 import { useViewerHistory } from "@/hooks/use-viewer-history";
 import { LogIn, LogOut, Radio, Settings, Users } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 export default function Home() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [layoutCols, setLayoutCols] = useState("6");
   const { liveList, offlineList, loading, error } = useStreamers();
+  const allStreamers = useMemo(
+    () => [...liveList, ...offlineList].map((s) => ({ id: s.id, name: s.name, soopId: s.soopId, platform: s.platform })),
+    [liveList, offlineList]
+  );
+  const { donations, connectionStatus } = useBiancaDonations(allStreamers);
   const viewerHistory = useViewerHistory(liveList, loading);
   const { user, isAdmin, signOut } = useAuth();
   const totalCount = liveList.length + offlineList.length;
@@ -151,6 +158,9 @@ export default function Home() {
             <ViewerChart data={viewerHistory} />
           </CardContent>
         </Card>
+
+        {/* 실시간 후원 (Bianca API 연동) */}
+        <DonationPanel donations={donations} connectionStatus={connectionStatus} />
 
         {/* 로딩 / 에러 */}
         {loading && totalCount === 0 && (
