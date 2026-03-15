@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* 메인 #eeeeee, 포인트 #33429d */
+    --background: 0 0% 93%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 98%;
+    --card-foreground: 0 0% 15%;
+    --primary: 230 51% 41%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 96%;
+    --secondary-foreground: 0 0% 20%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+    --accent: 230 51% 41%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 62% 50%;
+    --border: 0 0% 88%;
+    --input: 0 0% 88%;
+    --ring: 230 51% 41%;
+    --radius: 0.5rem;
+    --live: 142 70% 45%;
+    --offline: 0 0% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+  }
+}
+
+/* Nivo 차트 퍼블릭 스타일 */
+.nivo-chart text {
+  fill: hsl(var(--muted-foreground));
+  font-size: 11px;
+}
