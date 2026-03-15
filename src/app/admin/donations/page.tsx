@@ -4,6 +4,7 @@ import { useMemo } from "react";
 import Link from "next/link";
 import { useStreamers } from "@/hooks/use-streamers";
 import { useBiancaDonations } from "@/hooks/use-bianca-donations";
+import { useDonationsFromFirestore } from "@/hooks/use-donations-from-firestore";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, Heart, Trophy, TrendingUp } from "lucide-react";
@@ -26,7 +27,14 @@ export default function AdminDonationsPage() {
       })),
     [liveList, offlineList]
   );
-  const { donations, connectionStatus } = useBiancaDonations(allStreamers);
+  const { donations: firestoreDonations } = useDonationsFromFirestore();
+  const { donations: clientDonations, connectionStatus } = useBiancaDonations(allStreamers);
+
+  // Firestore(Functions 수집) + 클라이언트 실시간 합쳐서 at 기준 내림차순
+  const donations = useMemo(() => {
+    const combined = [...firestoreDonations, ...clientDonations];
+    return combined.sort((a, b) => b.at - a.at);
+  }, [firestoreDonations, clientDonations]);
 
   const { byStreamer, ranking } = useMemo(() => {
     const map = new Map<
@@ -71,7 +79,7 @@ export default function AdminDonationsPage() {
             후원 대시보드
           </h1>
           <p className="text-muted-foreground mt-1">
-            Bianca API 실시간 후원 · 스트리머별 금액 · 후원 순위 (현재 세션 기준)
+            Bianca API 후원 · 스트리머별 금액 · 후원 순위. Firebase Functions로 수집된 데이터 + 현재 탭 실시간이 합쳐져 표시됩니다.
           </p>
         </div>
         <div className="flex items-center gap-2 text-sm">

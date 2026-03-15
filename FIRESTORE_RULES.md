@@ -11,6 +11,11 @@
   - false: 관리자만 로그인 가능 (users/{uid}.isAdmin === true)
   - true: 모든 구글 로그인 허용
 
+### donations (후원 수집 – Firebase Functions 전용)
+- Firebase Functions `biancaDonationListener`가 Bianca WebSocket 수신 시 추가
+- 읽기: 로그인 유저 (관리자 후원 대시보드에서 조회)
+- 쓰기: 없음 (Functions Admin SDK만 사용)
+
 ## 규칙 예시
 
 Firebase Console → Firestore Database → 규칙에서 아래처럼 설정할 수 있습니다.
@@ -33,6 +38,11 @@ service cloud.firestore {
       allow read: if true;
       allow create: if request.auth != null;
       allow update, delete: if request.auth != null;
+    }
+    match /donations/{docId} {
+      allow read: if request.auth != null;
+      allow create: if false;
+      allow update, delete: if false;
     }
   }
 }

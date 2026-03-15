@@ -20,7 +20,7 @@ if (
   !firebaseConfig.appId
 ) {
   throw new Error(
-    "Firebase 설정이 없습니다. .env.local에 NEXT_PUBLIC_FIREBASE_API_KEY, AUTH_DOMAIN, PROJECT_ID, APP_ID 등을 설정하세요."
+    "Firebase 설정이 없습니다. 프로젝트 루트에 .env.local 파일을 만들고 NEXT_PUBLIC_FIREBASE_API_KEY, NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN, NEXT_PUBLIC_FIREBASE_PROJECT_ID, NEXT_PUBLIC_FIREBASE_APP_ID 를 설정하세요. .env.example 을 복사해 값을 채우면 됩니다."
   );
 }
 
