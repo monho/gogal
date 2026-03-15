@@ -25,14 +25,17 @@ interface ViewerChartProps {
 }
 
 export function ViewerChart({ data }: ViewerChartProps) {
-  const chartData = useMemo(
-    () =>
-      data.map((d) => ({
-        time: d.time,
-        viewers: d.viewers,
-      })),
-    [data]
-  );
+  const chartData = useMemo(() => {
+    const mapped = data.map((d) => ({
+      time: d.time,
+      viewers: d.viewers,
+    }));
+    if (mapped.length === 0) {
+      const t = new Date().toTimeString().slice(0, 5);
+      return [{ time: t, viewers: 0 }];
+    }
+    return mapped;
+  }, [data]);
 
   return (
     <div className="h-[200px] w-full">

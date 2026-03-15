@@ -14,9 +14,9 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { VIEWER_STATS } from "@/data/mock-streamers";
 import { useAuth } from "@/context/auth-context";
 import { useStreamers } from "@/hooks/use-streamers";
+import { useViewerHistory } from "@/hooks/use-viewer-history";
 import { LogIn, LogOut, Radio, Settings, Users } from "lucide-react";
 import { useState } from "react";
 
@@ -24,6 +24,7 @@ export default function Home() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [layoutCols, setLayoutCols] = useState("6");
   const { liveList, offlineList, loading, error } = useStreamers();
+  const viewerHistory = useViewerHistory(liveList, loading);
   const { user, isAdmin, signOut } = useAuth();
   const totalCount = liveList.length + offlineList.length;
 
@@ -144,10 +145,10 @@ export default function Home() {
               <Users className="h-4 w-4" />
               시청자 추이
             </CardTitle>
-            <CardDescription>시간대별 시청자 수 (예시 데이터)</CardDescription>
+            <CardDescription>시간대별 시청자 수 (실제 라이브 합계, 5분마다 기록)</CardDescription>
           </CardHeader>
           <CardContent>
-            <ViewerChart data={VIEWER_STATS} />
+            <ViewerChart data={viewerHistory} />
           </CardContent>
         </Card>
 
