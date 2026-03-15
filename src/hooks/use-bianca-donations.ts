@@ -61,6 +61,12 @@ export function useBiancaDonations(streamers: StreamerForDonation[]) {
       return;
     }
 
+    // HTTPS에서는 Bianca가 wss를 지원하지 않아 연결 실패함. Firestore(Functions) 데이터만 사용
+    if (typeof window !== "undefined" && window.location.protocol === "https:") {
+      setConnectionStatus("idle");
+      return;
+    }
+
     setConnectionStatus("connecting");
     let openCount = 0;
 
