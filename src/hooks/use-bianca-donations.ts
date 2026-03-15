@@ -3,7 +3,11 @@
 import { useEffect, useMemo, useRef, useState, useCallback } from "react";
 import type { DonationItem } from "@/types/donation";
 
-const WS_BASE = "wss://streamer.biancaapi.com";
+/** HTTPS면 wss, 로컬(http)이면 문서대로 ws 사용 */
+const WS_BASE =
+  typeof window !== "undefined" && window.location.protocol === "https:"
+    ? "wss://streamer.biancaapi.com"
+    : "ws://streamer.biancaapi.com";
 const MAX_DONATIONS = 50;
 
 interface StreamerForDonation {

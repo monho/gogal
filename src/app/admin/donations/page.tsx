@@ -87,6 +87,12 @@ export default function AdminDonationsPage() {
         </div>
       </div>
 
+      {connectionStatus === "error" && (
+        <p className="text-sm text-muted-foreground rounded-lg border border-amber-500/50 bg-amber-500/10 px-4 py-3">
+          HTTPS 사이트에서는 Bianca API가 <strong>wss</strong>를 지원해야 연결됩니다. 연결이 안 되면 로컬(http)에서 테스트하거나, Bianca 측에 wss 지원 여부를 문의해 보세요.
+        </p>
+      )}
+
       {loading ? (
         <div className="flex justify-center py-12">
           <div className="h-10 w-10 animate-spin rounded-full border-4 border-muted border-t-primary" />
