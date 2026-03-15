@@ -7,7 +7,7 @@ import { db } from "@/lib/firebase";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { UserPlus, Users, LogIn } from "lucide-react";
+import { UserPlus, Users, LogIn, Heart } from "lucide-react";
 import { getAppSettings, setAppSettings, type AppSettings } from "@/lib/settings";
 
 const STREAMERS_COLLECTION = "streamers";
@@ -154,6 +154,23 @@ export default function AdminPage() {
           <CardContent>
             <Button variant="outline" asChild>
               <Link href="/admin/streamers">목록 보기</Link>
+            </Button>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Heart className="h-5 w-5" />
+              후원 API 연동
+            </CardTitle>
+            <CardDescription>
+              스트리머 목록에서 BJ ID(soopId)가 등록된 스트리머는 Bianca API로 후원 연동됩니다. 후원 대시보드에서 실시간 후원·순위를 확인하세요.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button variant="outline" asChild>
+              <Link href="/admin/donations">후원 대시보드</Link>
             </Button>
           </CardContent>
         </Card>

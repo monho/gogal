@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, UserPlus, Users } from "lucide-react";
+import { LayoutDashboard, UserPlus, Users, Heart } from "lucide-react";
 
 const MENU_ITEMS = [
   { name: "대시보드", path: "/admin", icon: LayoutDashboard },
   { name: "스트리머 추가", path: "/admin/streamers/new", icon: UserPlus },
   { name: "스트리머 목록", path: "/admin/streamers", icon: Users },
+  { name: "후원 대시보드", path: "/admin/donations", icon: Heart },
 ] as const;
 
 export function AdminSidebar() {
